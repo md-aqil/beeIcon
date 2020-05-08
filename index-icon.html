@@ -6,32 +6,187 @@
     <title>Vue App</title>
     <link rel="stylesheet" href="beeicon-font.css">
 
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+
+body {
+	font-family: 'Poppins', sans-serif;
+}
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .hero-banner {
+            width: 100%;
+            height: 100%;
+            background-color: #F7F6F2;
+        }
+        .bg-gray {
+            background-color: #F7F6F2;
+
+        }
+        .spacer {
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        .hero-banner img:not(.bee) {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-banner   .overlay {
+            width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        }
+.search-control{
+    width: 500px;
+    height: 50px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 17px;
+    font-weight: 300;
+    border: none;
+    outline: none;
+    /* border: 1px solid #c7c7c7; */
+    border-radius: 4px;
+    box-shadow: 0px 0px 6px  #00000021;
+}
+.container {
+    width: 90%;
+    display: block;
+    margin: auto;
+}
+
+.iconList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.iconList li {
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    padding: 15px;
+    width: 100px;
+    margin: 8px;
+    text-align: center;
+    background: #ffffff;
+    position: relative;
+
+}
+.iconList li span {
+    font-size: 35px;
+}
+.flex-input {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.09);
+    padding: 5px;
+    position: absolute;
+    bottom: 8px;
+    /* left: 0; */
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: 70%;
+    z-index: 1;
+    background: #fff;
+    opacity: 0;
+	will-change: transform, scale, opacity;
+	-webkit-transform: translateY(16px) scale(0.93);
+			transform: translateY(16px) scale(0.93);
+	transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.iconList li:hover .flex-input {
+    opacity: 1;
+	-webkit-transform: translateY(0) scale(1);
+			transform: translateY(0) scale(1);
+}
+.flex-input input{
+ 
+    border: none;
+  
+    border-radius: 3px;
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.flex-input input.css {
+    width: 70%;
+    border-right: 1px solid #ddd;
+
+}
+
+.flex-input input.code {
+    width: 30%;
+
+}
+
+
+.iconList li span {
+ 
+}
+.bee {
+    position: absolute;
+    width: 80px !important;
+}
+    </style>
+
 </head>
 <body>
 
-    <div id="vueApp">
-        <div class="searchBox"> 
-            <h1 class="title">
-                Search From 100 + Icons
-            </h1>
-            <input type="text" v-model="search" class="search-control" placeholder="Search Here">
-            <span class="status">{{search}}</span>
-            
+    <main id="vueApp">
+        <div class="hero-banner">
+            <img src="vendor/banner.png" alt="">
+            <div class="overlay">
+                <img class="bee" src="vendor/bee.gif" alt="">
+                <div class="searchBox"> 
+                    <h1 class="title">
+                        Search From 100 + Icons
+                    </h1>
+                    <div>
+                        <input type="text" v-model="search" class="search-control" placeholder="Search Here">
+
+                    </div>
+                    <span class="status">{{search}}</span>
+                    
+                </div>
+        
+        
+            </div>
         </div>
+        <section class="bg-gray" style="margin-top: -150px;">
+            <div class="container">
+                <ul class="iconList">
+                    <li  v-for="(data, i) in status" ::key="i">
+                        <span :class="'bee-icon-' + data.properties.name">
+                        </span>
+                        <p> {{data.properties.name}}</p>
+                        <div class="flex-input">
+                            <input class="css" type="text" :value="data.properties.code">
+                            <input class="code" type="text" :value="String.fromCharCode( data.properties.code)">
+                        </div>
+                           
+                    </li>
+                </ul>
+                
+            </div>
+    
+        </section>
+       
+       
+  
 
-
-      <div v-for="(data, i) in status" ::key="i">
-        <span :class="'bee-icon-' + data.properties.name">
-        </span>
-        <p> {{data.properties.name}}</p>
-        <div class="flex-input">
-            <input type="text" :value="data.properties.code">
-            <input type="text" :value="String.fromCharCode( data.properties.code)">
-        </div>
-           
-     </div>
-
-    </div>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
@@ -53,7 +208,7 @@
                 // https://md-aqil.github.io/bee-icon/selection.json
 
                 axios
-                .get("https://md-aqil.github.io/bee-icon/selection.json")
+                .get("https://md-aqil.github.io/beeIcon/selection.json")
                 .then(response => {
                     this.status = response.data.icons;
                 });

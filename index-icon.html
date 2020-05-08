@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue App</title>
+    <link rel="stylesheet" href="beeicon-font.css">
+
+</head>
+<body>
+
+    <div id="vueApp">
+        <div class="searchBox"> 
+            <h1 class="title">
+                Search From 100 + Icons
+            </h1>
+            <input type="text" v-model="search" class="search-control" placeholder="Search Here">
+            <span class="status">{{search}}</span>
+            
+        </div>
+
+
+      <div v-for="(data, i) in status" ::key="i">
+        <span :class="'bee-icon-' + data.properties.name">
+        </span>
+        <p> {{data.properties.name}}</p>
+        <div class="flex-input">
+            <input type="text" :value="data.properties.code">
+            <input type="text" :value="String.fromCharCode( data.properties.code)">
+        </div>
+           
+     </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+
+    <script type="module">
+       
+        var allIcons =  new Vue({
+            el: '#vueApp',
+            data: {
+              status: '',
+              search: ''
+            },
+            
+            methods: {
+            },
+
+            created() {
+              
+                // https://md-aqil.github.io/bee-icon/selection.json
+
+                axios
+                .get("https://md-aqil.github.io/bee-icon/selection.json")
+                .then(response => {
+                    this.status = response.data.icons;
+                });
+                
+            },
+
+            computed: {
+             filterIcons: function() {
+                 return this.status.filter((properties) => {
+                     return properties.title.match(this.search);
+                 })
+             }
+         },
+         
+        })
+    </script>
+    
+</body>
+</html>

@@ -11,6 +11,8 @@
 
 body {
 	font-family: 'Poppins', sans-serif;
+    background-color: #F7F6F2;
+
 }
         body {
             margin: 0;
@@ -18,8 +20,9 @@ body {
         }
         .hero-banner {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             background-color: #F7F6F2;
+            position: relative;
         }
         .bg-gray {
             background-color: #F7F6F2;
@@ -36,17 +39,17 @@ body {
         }
         .hero-banner   .overlay {
             width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+      padding-top: 100px;
         }
 .search-control{
     width: 500px;
-    height: 50px;
+    height: 60px;
     padding: 15px;
     box-sizing: border-box;
     font-size: 17px;
@@ -55,7 +58,7 @@ body {
     outline: none;
     /* border: 1px solid #c7c7c7; */
     border-radius: 4px;
-    box-shadow: 0px 0px 6px  #00000021;
+    box-shadow: 0px 0px 12px  #00000021;
 }
 .container {
     width: 90%;
@@ -83,8 +86,8 @@ body {
     position: relative;
 
 }
-.iconList li span {
-    font-size: 35px;
+.iconList li p {
+    font-size: 14px;
 }
 .flex-input {
     display: flex;
@@ -92,7 +95,7 @@ body {
     box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.09);
     padding: 5px;
     position: absolute;
-    bottom: 8px;
+    bottom: -8px;
     /* left: 0; */
     margin: auto;
     left: 0;
@@ -131,49 +134,146 @@ body {
 
 }
 
+.iconList li:nth-child(-n+16) span{
+    background: linear-gradient(150deg, #F2C314, #FC3832);
+
+border-radius: 50%;
+--size: 55px;
+width: var(--size);
+height: var(--size);
+display: flex;
+align-items: center;
+justify-content: center;
+color: #fff;
+   text-shadow: 0 1px 8px #9c818121;
+   margin: auto;
+       box-shadow: 0 7px 10px #0000001a;
+       -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: #ffffff;
+
+
+    -webkit-border-radius: 50%/14% !important;
+    border-radius: 50%/14% !important;
+    position: relative !important;
+    width: 50px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fff;
+    height: 55px !important;
+   
+    box-shadow:0px 5px 10px 0px rgba(0, 0, 0, 0.22);
+    /* filter: drop-shadow(); */
+    border: 1px solid  var(--theme-color1) !important;
+}
+
+.title  {
+    font-weight: 400;
+    text-align: center;
+}
 
 .iconList li span {
- 
+ font-size: 30px;
 }
 .bee {
     position: absolute;
     width: 80px !important;
+    right: 100px;
+    margin-top: 50px;
 }
+.blog-status {
+    display: block;
+    height: 50px;
+    text-align: center;
+    margin-top: 14px;
+    font-weight: 300;
+
+}
+
+.bg_color {
+    background: linear-gradient(150deg, #F2C314, #FC3832);
+
+	     border-radius: 50%;
+	     --size: 55px;
+	     width: var(--size);
+	     height: var(--size);
+	     display: flex;
+	     align-items: center;
+	     justify-content: center;
+		color: #fff;
+		    text-shadow: 0 1px 8px #00000021;
+		    margin: auto;
+		        box-shadow: 0 7px 10px #0000001a;
+}
+
+.fill_color {
+    /* background: linear-gradient(150deg, #e44f2f 42%, #faba20);
+     */
+     background: linear-gradient(150deg, #F2C314, #FC3832);
+
+	 -webkit-background-clip: text !important;
+	 -webkit-text-fill-color: transparent;
+}
+.main-banner {
+    background: #491a3c;
+
+}
+
+
     </style>
 
 </head>
 <body>
 
     <main id="vueApp">
+      
+
         <div class="hero-banner">
             <img src="vendor/banner.png" alt="">
             <div class="overlay">
                 <img class="bee" src="vendor/bee.gif" alt="">
                 <div class="searchBox"> 
-                    <h1 class="title">
-                        Search From 100 + Icons
+                    <h1 class="title text-center">
+                        Search From 
                     </h1>
+                                
                     <div>
                         <input type="text" v-model="search" class="search-control" placeholder="Search Here">
 
                     </div>
-                    <span class="status">{{search}}</span>
-                    
+                    <div class="blog-status" v-if="search">{{search}}</div>
+              
                 </div>
-        
-        
-            </div>
+
+                <!-- <div>
+                    <div class="slidecontainer">
+                        <input v-model="rangeSlider" type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                    {{rangeSlider}}
+                    </div>
+                  
+                    <input v-model="color" type="color" >
+                    {{color}} 
+
+                </div> -->
+
         </div>
-        <section class="bg-gray" style="margin-top: -150px;">
+        <section class="bg-gray" style="margin-top: -300px;" >
             <div class="container">
                 <ul class="iconList">
-                    <li  v-for="(data, i) in status" ::key="i">
-                        <span :class="'bee-icon-' + data.properties.name">
+                    <li  v-for="(blog, i) in filterdblogs" ::key="i">
+
+                        <span class="fill_color" 
+                        v-bind:style="{ color:color } " 
+                        :class="'bee-icon-' + blog.properties.name">
                         </span>
-                        <p> {{data.properties.name}}</p>
+
+
+                        <p > {{blog.properties.name}}</p>
+
                         <div class="flex-input">
-                            <input class="css" type="text" :value="data.properties.code">
-                            <input class="code" type="text" :value="String.fromCharCode( data.properties.code)">
+                            <input class="css" type="text" :value="blog.properties.code">
+                            <input class="code" type="text" :value="String.fromCharCode( blog.properties.code)">
                         </div>
                            
                     </li>
@@ -196,8 +296,10 @@ body {
         var allIcons =  new Vue({
             el: '#vueApp',
             data: {
-              status: '',
-              search: ''
+              blogs: [],
+              search: '',
+              rangeSlider: '30',
+              color:'',
             },
             
             methods: {
@@ -210,17 +312,17 @@ body {
                 axios
                 .get("https://md-aqil.github.io/beeIcon/selection.json")
                 .then(response => {
-                    this.status = response.data.icons;
+                    this.blogs = response.data.icons;
                 });
                 
             },
 
             computed: {
-             filterIcons: function() {
-                 return this.status.filter((properties) => {
-                     return properties.title.match(this.search);
-                 })
-             }
+                filterdblogs: function() {
+                    return this.blogs.filter((blog) => {
+                        return blog.properties.name.match(this.search)
+                    })
+                }
          },
          
         })
